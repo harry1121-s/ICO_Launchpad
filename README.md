@@ -1,13 +1,5 @@
 ICO launchpad:
 
-Tasks:
-Detailed
-Token contract
-Presale contract
-Frontend design
-Wallet integration (3 wallets)
-Frontend integration
-
 Milestones: 2 weeks(27th Feb)
 1. Advance: 14-02
 2. Token and presale contract (airdrop, and other added functionality): 19-02
