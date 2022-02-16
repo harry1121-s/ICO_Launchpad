@@ -1,15 +1,24 @@
-# Basic Sample Hardhat Project
+ICO launchpad:
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Tasks:
+Detailed
+Token contract
+Presale contract
+Frontend design
+Wallet integration (3 wallets)
+Frontend integration
 
-Try running some of the following tasks:
+Milestones: 2 weeks(27th Feb)
+1. Advance: 14-02
+2. Token and presale contract (airdrop, and other added functionality): 19-02
+3. Frontend design: 21-02
+4. Detailed documentation: 21-02
+5. Frontend integration, deployment(backend server): 27-02
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+
+Payment:
+1. Advance: $200.
+2. Token & PreSale Contract (airdrop & other functionality) : $600
+3. Front-end Design: $500
+5. Detailed documentation: $500
+4. Frontend Integration & deployment: $200
