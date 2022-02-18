@@ -351,8 +351,14 @@ describe("Test Procedure", function () {
 
     it("Should check for airdop", async function(){
 
+      await expect(presale.connect(accountA).airDrop(airdropAddress, airdropAmount))
+      .to.be.revertedWith("Ownable: caller is not the owner");
       await presale.airDrop(airdropAddress, airdropAmount);
       expect(await mytoken.balanceOf(accounts[5].address)).to.equal(String(String(10**18)));
+      expect(await mytoken.balanceOf(accounts[6].address)).to.equal(String(String(10**18)));
+      expect(await mytoken.balanceOf(accounts[7].address)).to.equal(String(String(10**18)));
+      expect(await mytoken.balanceOf(accounts[8].address)).to.equal(String(String(10**18)));
+      expect(await mytoken.balanceOf(accounts[9].address)).to.equal(String(String(10**18)));
 
     });
 
