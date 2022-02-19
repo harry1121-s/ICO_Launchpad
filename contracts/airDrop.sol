@@ -18,7 +18,7 @@ contract airDrop is Ownable{
     constructor(
         address _saleToken,
         uint256 _airDropAmount
-    ) public {
+    ) {
         saleToken = _saleToken;
         airDropAmount = _airDropAmount;
     }
