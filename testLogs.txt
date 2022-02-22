@@ -1,21 +1,21 @@
 
 
-  Test Procedure
+  ICO_Launchpad
     ✓ Should check for Contract's ownership
-    ✓ Should set correct Params for the PreSale contract (681ms)
-    ✓ Should update Token prices. (83ms)
+    ✓ Should set correct Params for the PreSale contract (699ms)
+    ✓ Should update Token prices. (88ms)
     ✓ Should not allow users to buy Sale Token. (179ms)
-    ✓ Should fail in setting Sale Period Params. (98ms)
-    ✓ Should allow users to buy Sale Token. (705ms)
-    ✓ Should update Token price during sale. (90ms)
-    ✓ Should allow users to buy Sale Token with new rates. (688ms)
+    ✓ Should create referral (77ms)
+    ✓ Should fail in setting Sale Period Params. (89ms)
+    ✓ Should allow users to buy Sale Token. (829ms)
+    ✓ Should update Token price during sale. (126ms)
+    ✓ Should allow users to buy Sale Token with new rates. (544ms)
     ✓ Should stop Sale.
     ✓ Should not allow users to buy Sale Token after sale has ended.
-    ✓ Should allow users to withdraw Sale Token. (344ms)
-2000000000000000000
-    ✓ Should allow Owner to withdraw funds (120ms)
-    ✓ Should check for airdop (58ms)
+    ✓ Should allow users to withdraw Sale Token. (391ms)
+    ✓ Should allow Owner to withdraw funds (126ms)
+    ✓ Should check for airdop (94ms)
 
 
-  13 passing (4s)
+  14 passing (4s)
 

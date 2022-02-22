@@ -337,16 +337,10 @@ describe("ICO_Launchpad", function () {
 
     it("Should allow Owner to withdraw funds", async function(){
 
-        // console.log(await atoken.balanceOf(presale.address));
-        // console.log(await btoken.balanceOf(presale.address));
-        // ownerBalA1 = await atoken.balanceOf(accounts[0].address);
-        // ownerBalB1 = await btoken.balanceOf(accounts[0].address);
-
-
         await presale.withdraw(atoken.address, "20000000000000000000000");
         await presale.withdrawAll(btoken.address);
 
-        console.log(await web3.eth.getBalance(presale.address));
+        // console.log(await web3.eth.getBalance(presale.address));
 
         await presale.withdrawCurrency(String(10**18));
 
@@ -355,13 +349,7 @@ describe("ICO_Launchpad", function () {
         expect(String(ownerBal)).to.equal(String(10**18));
         expect(await atoken.balanceOf(presale.address)).to.equal("10000000000000000000000");
         expect(await btoken.balanceOf(presale.address)).to.equal(0);
-        // ownerBalA2 = await atoken.balanceOf(accounts[0].address);
-        // ownerBalB2 = await btoken.balanceOf(accounts[0].address);
-        // console.log(ownerBalA1);
-        // console.log(ownerBalA2);
-        // expect((ownerBalA2 - ownerBalA1)).to.equal("20000000000000000000000");
-        // expect((ownerBalB2 - ownerBalB1)).to.equal("40000000000000000000000");
-
+        
 
     });
 
