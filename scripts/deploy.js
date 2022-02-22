@@ -9,8 +9,8 @@ contract("Presale Deployment", () => {
 	let btoken;
     let tx;
 
-    const provider = new ethers.providers.JsonRpcProvider(CONFIG["RINKEBY"]["URL"]);
-    const signer = new ethers.Wallet(CONFIG["RINKEBY"]["PKEY"]);
+    const provider = new ethers.providers.JsonRpcProvider(CONFIG["BSCTESTNET"]["URL"]);
+    const signer = new ethers.Wallet(CONFIG["BSCTESTNET"]["PKEY"]);
     const account = signer.connect(provider);
 
     before(async () => {
