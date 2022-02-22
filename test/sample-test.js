@@ -6,7 +6,7 @@ const { defaultAccounts } = require("ethereum-waffle");
 const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
 
 
-describe("Test Procedure", function () {
+describe("ICO_Launchpad", function () {
 
     let start, end, lock1, lock2;
     let WLTokens = [], price = [];
@@ -107,7 +107,7 @@ describe("Test Procedure", function () {
             30
             );
         await mytoken.approve(presale.address, "20000000000000000000000000");
-        await presale.setSaleTokenParams(mytoken.address, "20000000000000000000000000", String(10**18), String(3 * 10**15));
+        await presale.setSaleTokenParams(mytoken.address, "20000000000000000000000000", String(10**18));
         
         await presale.addWhiteListedToken(WLTokens, price);
 
@@ -132,7 +132,7 @@ describe("Test Procedure", function () {
         expect(String(lockRate)).to.equal(String(30));
         expect(tokensWL).to.equal(true);
         expect(tokenAmt).to.equal(String(2 * 10**18));
-        expect(await presale.referralFee()).to.equal(String(3*10**15));
+        
 
         await mytoken.transfer(adrop.address, String(200*10**18));
 
@@ -152,7 +152,6 @@ describe("Test Procedure", function () {
 
     });
 
-
     it("Should not allow users to buy Sale Token.", async function(){
 
         accountA = accounts[1];
@@ -163,10 +162,18 @@ describe("Test Procedure", function () {
         await btoken.transfer(accountB.address, "100000000000000000000000");
     
         await atoken.connect(accountA).approve(presale.address, "20000000000000000000000");
-        await expect(presale.connect(accountA)
-        .buyToken(atoken.address, "20000000000000000000000", "0x0000000000000000000000000000000000000000000000000000000000000000"))
+        await expect(presale.connect(accountB)
+        .buyToken(atoken.address, "20000000000000000000000", accountA.address))
         .to.be.revertedWith("Presale: Sale hasn't started");
 
+    });
+
+
+    it("Should create referral", async function(){
+      await presale.connect(accountA).createReferral(250);
+      refObj = await presale.referrals(accountA.address);
+      expect(refObj.percentage).to.equal(250);
+      expect(refObj.isReferrer).to.equal(true);
     });
 
     it("Should fail in setting Sale Period Params.", async function(){
@@ -197,7 +204,7 @@ describe("Test Procedure", function () {
 
         // await mytoken.approve(presale.address, 400000);
         await expect(presale.setSaleTokenParams(
-            mytoken.address, "40000000000000000000000", String(10**18), String(3*10**15)
+            mytoken.address, "40000000000000000000000", String(10**18)
         )).to.be.revertedWith("PreSale: Sale has already started. Cannot change Sale Params!");
 
     });
@@ -208,21 +215,24 @@ describe("Test Procedure", function () {
         await advancetime(2 * 24 * 60 * 60);
         await advanceBlock();
 
-        await atoken.connect(accountA).approve(presale.address, "20000000000000000000000");
-        await presale.connect(accountA).buyToken(atoken.address, "20000000000000000000000", "0x0000000000000000000000000000000000000000000000000000000000000000");
-
-       
-        await btoken.connect(accountB).approve(presale.address, "30000000000000000000000");
-        await presale.connect(accountB).buyToken(btoken.address, "30000000000000000000000", "0x0000000000000000000000000000000000000000000000000000000000000000");
-
-        await presale.connect(accountC).buyToken(addr0, 0, "0x0000000000000000000000000000000000000000000000000000000000000000", {value: ethers.utils.parseEther("1.0")});
+        await atoken.connect(accountA).approve(presale.address, "20000000000000000000000", );
+        await presale.connect(accountA).buyToken(atoken.address, "20000000000000000000000", addr0);
 
         buyerAmt1 = await presale.buyersAmount(accountA.address);
+        expect(buyerAmt1.amount).to.equal("4000000000000000000000");
+       
+        await btoken.connect(accountB).approve(presale.address, "30000000000000000000000");
+        await presale.connect(accountB).buyToken(btoken.address, "30000000000000000000000", accountA.address);
+
+        await presale.connect(accountC).buyToken(addr0, 0, addr0, {value: ethers.utils.parseEther("1.0")});
+
+        
         buyerAmt2 = await presale.buyersAmount(accountB.address);
+        buyerAmt11 = await presale.buyersAmount(accountA.address);
         buyerAmt3 = await presale.buyersAmount(accountC.address);
 
-        expect(buyerAmt1.amount).to.equal("4000000000000000000000");
-        expect(buyerAmt2.amount).to.equal("3000000000000000000000");
+        expect(buyerAmt2.amount).to.equal("3007500000000000000000");
+        expect(await buyerAmt11.amount).to.equal("4007500000000000000000");
         expect(buyerAmt3.amount).to.equal(String(10**18));
         expect(await atoken.balanceOf(presale.address)).to.equal("20000000000000000000000");
         expect(await btoken.balanceOf(presale.address)).to.equal("30000000000000000000000");
@@ -251,21 +261,20 @@ describe("Test Procedure", function () {
         await advanceBlock();
 
         await atoken.connect(accountA).approve(presale.address, "10000000000000000000000");
-        await presale.connect(accountA).buyToken(atoken.address, "10000000000000000000000", "0x0000000000000000000000000000000000000000000000000000000000000000");
-
-       
+        await presale.connect(accountA).buyToken(atoken.address, "10000000000000000000000", addr0);
         await btoken.connect(accountB).approve(presale.address, "10000000000000000000000");
-        await presale.connect(accountB).buyToken(btoken.address, "10000000000000000000000", "0x0000000000000000000000000000000000000000000000000000000000000000");
+        await presale.connect(accountB).buyToken(btoken.address, "10000000000000000000000", accountA.address);
 
-        await presale.connect(accountC).buyToken(addr0, 0, "0x0000000000000000000000000000000000000000000000000000000000000000", {value: ethers.utils.parseEther("1.0")});
+        await presale.connect(accountC).buyToken(addr0, 0, accountA.address, {value: ethers.utils.parseEther("1.0")});
 
         buyerAmt1 = await presale.buyersAmount(accountA.address);
         buyerAmt2 = await presale.buyersAmount(accountB.address);
+
         buyerAmt3 = await presale.buyersAmount(accountC.address);
 
-        expect(buyerAmt1.amount).to.equal("6500000000000000000000");
-        expect(buyerAmt2.amount).to.equal("3666666666666666666666");
-        expect(buyerAmt3.amount).to.equal(String(11 * 10**17));
+        expect(buyerAmt1.amount).to.equal("6509166916666666666666");
+        expect(buyerAmt2.amount).to.equal("3675833333333333333332");
+        expect(buyerAmt3.amount).to.equal("1100250000000000000");
         expect(await atoken.balanceOf(presale.address)).to.equal("30000000000000000000000");
         expect(await btoken.balanceOf(presale.address)).to.equal("40000000000000000000000");
         expect(await atoken.balanceOf(accountA.address)).to.equal("70000000000000000000000");
@@ -281,7 +290,7 @@ describe("Test Procedure", function () {
 
         await atoken.connect(accountA).approve(presale.address, 10000);
         await expect(presale.connect(accountA)
-        .buyToken(atoken.address, 10000, "0x0000000000000000000000000000000000000000000000000000000000000000"))
+        .buyToken(atoken.address, 10000, addr0))
         .to.be.revertedWith("PreSale: Sale has already ended");
 
     });
@@ -303,9 +312,9 @@ describe("Test Procedure", function () {
         await presale.connect(accountB).withdrawToken();
         await presale.connect(accountC).withdrawToken();
 
-        expect(await mytoken.balanceOf(accountA.address)).to.equal("1950000000000000000000");
-        expect(await mytoken.balanceOf(accountB.address)).to.equal("1099999999999999999999");
-        expect(await mytoken.balanceOf(accountC.address)).to.equal(String(33 * 10**16));
+        expect(await mytoken.balanceOf(accountA.address)).to.equal("1952750074999999999999");
+        expect(await mytoken.balanceOf(accountB.address)).to.equal("1102749999999999999999");
+        expect(await mytoken.balanceOf(accountC.address)).to.equal("330075000000000000");
 
         await expect(presale
             .connect(accountA)
@@ -319,11 +328,11 @@ describe("Test Procedure", function () {
         await presale.connect(accountB).withdrawToken();
         await presale.connect(accountC).withdrawToken();
 
-        expect(await mytoken.balanceOf(accountA.address)).to.equal("6500000000000000000000");
-        expect(await mytoken.balanceOf(accountB.address)).to.equal("3666666666666666666666");
-        expect(await mytoken.balanceOf(accountC.address)).to.equal(String(11 * 10**17));
+        expect(await mytoken.balanceOf(accountA.address)).to.equal("6509166916666666666666");
+        expect(await mytoken.balanceOf(accountB.address)).to.equal("3675833333333333333332");
+        expect(await mytoken.balanceOf(accountC.address)).to.equal("1100250000000000000");
 
-        expect(await mytoken.balanceOf(presale.address)).to.equal("19989832233333333333333334");
+        expect(await mytoken.balanceOf(presale.address)).to.equal("19989813899500000000000002");
     });
 
     it("Should allow Owner to withdraw funds", async function(){
@@ -368,14 +377,6 @@ describe("Test Procedure", function () {
       expect(await mytoken.balanceOf(accounts[9].address)).to.equal(String(String(10**18)));
 
     });
-
-    it("Should create referral", async function(){
-
-      await presale.connect(accountA).createReferral({value: ethers.utils.parseEther("0.003")});
-      // console.log(referral);
-      // console.log(await presale.referrals(referral.hash));
-    });
-
 
 
 });
