@@ -215,7 +215,10 @@ describe("ICO_Launchpad", function () {
         await advancetime(2 * 24 * 60 * 60);
         await advanceBlock();
 
-        await atoken.connect(accountA).approve(presale.address, "20000000000000000000000", );
+        await atoken.connect(accountA).approve(presale.address, "20000000000000000000000");
+        await expect(presale.connect(accountA).
+        buyToken(atoken.address, "20000000000000000000000", accountA.address))
+        .to.be.revertedWith("PreSale: Cannot refer yourself!");
         await presale.connect(accountA).buyToken(atoken.address, "20000000000000000000000", addr0);
 
         buyerAmt1 = await presale.buyersAmount(accountA.address);

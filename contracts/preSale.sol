@@ -3,14 +3,14 @@ pragma solidity ^0.8.4;
 
 import "./OwnerWithdrawable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+// import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "hardhat/console.sol";  
 
 contract preSale is OwnerWithdrawable {
     using SafeMath for uint256;
-    using SafeERC20 for IERC20;
+    // using SafeERC20 for IERC20;
     using SafeERC20 for IERC20Metadata;
 
    
@@ -126,7 +126,7 @@ contract preSale is OwnerWithdrawable {
         saleToken = _saleToken;
         saleTokenDec = IERC20Metadata(saleToken).decimals();
         totalTokensforSale = _totalTokensforSale;
-        IERC20(saleToken).safeTransferFrom(msg.sender, address(this), totalTokensforSale);
+        IERC20Metadata(saleToken).safeTransferFrom(msg.sender, address(this), totalTokensforSale);
     }
 
     //function to set Pre-Sale duration and locking periods
@@ -215,6 +215,7 @@ contract preSale is OwnerWithdrawable {
     // Public Function to buy tokens. APPROVAL needs to be done first
     function buyToken(address _token, uint256 _amount, address _referralId) external payable saleDuration{
         
+        require(msg.sender != _referralId, "PreSale: Cannot refer yourself!");
         uint256 saleTokenAmt;
         if(_token != address(0)){
             require(_amount > 0, "Presale: Cannot buy with zero amount");
@@ -222,7 +223,7 @@ contract preSale is OwnerWithdrawable {
 
             saleTokenAmt = getTokenAmount(_token, _amount);
             require((totalTokensSold + saleTokenAmt) <= totalTokensforSale, "PreSale: Total Token Sale Reached!");
-            IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+            IERC20Metadata(_token).safeTransferFrom(msg.sender, address(this), _amount);
         }
         else{
             saleTokenAmt = getTokenAmount(address(0), msg.value);
@@ -234,14 +235,15 @@ contract preSale is OwnerWithdrawable {
             buyersAmount[msg.sender].amount = buyersAmount[msg.sender].amount.add(saleTokenAmt);
         }
         else{
-            uint256 refSaleTokens = saleTokenAmt.mul(1005).div(1000);
-            require(totalTokensSold + refSaleTokens <= totalTokensforSale, "PreSale: Total Token Sale Reached, cannot give referrals!");
-            totalTokensSold = totalTokensSold.add(refSaleTokens);
             uint256 buyerPercent = 500 - referrals[_referralId].percentage;
-            buyersAmount[msg.sender].amount = buyersAmount[msg.sender].amount.add(saleTokenAmt.mul(100000+buyerPercent).div(100000));
-            buyersAmount[_referralId].amount = buyersAmount[_referralId].amount.add(saleTokenAmt.mul(referrals[_referralId].percentage).div(100000));
+            uint256 buyerToken = saleTokenAmt.mul(100000+buyerPercent).div(100000);
+            uint256 referrerToken = saleTokenAmt.mul(referrals[_referralId].percentage).div(100000);
+            buyersAmount[msg.sender].amount = buyersAmount[msg.sender].amount.add(buyerToken);
+            buyersAmount[_referralId].amount = buyersAmount[_referralId].amount.add(referrerToken);
+            uint256 refSaleTokens = buyerToken.add(referrerToken);
+            require(totalTokensSold.add(refSaleTokens) <= totalTokensforSale, "PreSale: Total Token Sale Reached, cannot give referrals!");
+            totalTokensSold = totalTokensSold.add(refSaleTokens);
         }
-        
     }
 
     function withdrawToken()external {
@@ -258,7 +260,7 @@ contract preSale is OwnerWithdrawable {
             buyersAmount[msg.sender].lockingPeriod1Claimed = true;
         }
         buyersAmount[msg.sender].amount -= tokensforWithdraw;
-        IERC20(saleToken).safeTransfer(msg.sender, tokensforWithdraw);
+        IERC20Metadata(saleToken).safeTransfer(msg.sender, tokensforWithdraw);
     }
 
 
