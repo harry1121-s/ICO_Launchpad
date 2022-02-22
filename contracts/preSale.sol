@@ -72,9 +72,6 @@ contract preSale is OwnerWithdrawable {
         bool lockingPeriod1Claimed;
     }
 
-    //Referral fee
-    uint256 public referralFee;
-
     //Token buyers' receipt
     // struct BuyReceipt {
     //     address buyer;
@@ -122,7 +119,7 @@ contract preSale is OwnerWithdrawable {
 
     //function to set information of Token sold in Pre-Sale and its rate in Native currency
     function setSaleTokenParams(
-        address _saleToken, uint256 _totalTokensforSale, uint256 _rate, uint256 _referralFee
+        address _saleToken, uint256 _totalTokensforSale, uint256 _rate
     )external onlyOwner saleStarted{
         require(_rate != 0, "PreSale: Invalid Native Currency rate!");
         rate = _rate;
@@ -130,7 +127,6 @@ contract preSale is OwnerWithdrawable {
         saleTokenDec = IERC20Metadata(saleToken).decimals();
         totalTokensforSale = _totalTokensforSale;
         IERC20(saleToken).safeTransferFrom(msg.sender, address(this), totalTokensforSale);
-        referralFee = _referralFee;
     }
 
     //function to set Pre-Sale duration and locking periods
@@ -243,7 +239,7 @@ contract preSale is OwnerWithdrawable {
             totalTokensSold = totalTokensSold.add(refSaleTokens);
             uint256 buyerPercent = 500 - referrals[_referralId].percentage;
             buyersAmount[msg.sender].amount = buyersAmount[msg.sender].amount.add(saleTokenAmt.mul(100000+buyerPercent).div(100000));
-            buyersAmount[_referralId].amount = buyersAmount[_referralId].amount.add(saleTokenAmt.mul(100000+referrals[_referralId].percentage).div(100000));
+            buyersAmount[_referralId].amount = buyersAmount[_referralId].amount.add(saleTokenAmt.mul(referrals[_referralId].percentage).div(100000));
         }
         
     }
