@@ -225,6 +225,9 @@ describe("ICO_Launchpad", function () {
         expect(buyerAmt1.amount).to.equal("4000000000000000000000");
        
         await btoken.connect(accountB).approve(presale.address, "30000000000000000000000");
+        await expect(presale.connect(accountB).
+        buyToken(btoken.address, "30000000000000000000000", accountC.address))
+        .to.be.revertedWith("PreSale: Referral does not exist!");
         await presale.connect(accountB).buyToken(btoken.address, "30000000000000000000000", accountA.address);
 
         await presale.connect(accountC).buyToken(addr0, 0, addr0, {value: ethers.utils.parseEther("1.0")});

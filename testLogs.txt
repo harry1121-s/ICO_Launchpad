@@ -2,19 +2,19 @@
 
   ICO_Launchpad
     ✓ Should check for Contract's ownership
-    ✓ Should set correct Params for the PreSale contract (699ms)
-    ✓ Should update Token prices. (88ms)
-    ✓ Should not allow users to buy Sale Token. (179ms)
-    ✓ Should create referral (77ms)
-    ✓ Should fail in setting Sale Period Params. (89ms)
-    ✓ Should allow users to buy Sale Token. (829ms)
-    ✓ Should update Token price during sale. (126ms)
-    ✓ Should allow users to buy Sale Token with new rates. (544ms)
+    ✓ Should set correct Params for the PreSale contract (759ms)
+    ✓ Should update Token prices. (79ms)
+    ✓ Should not allow users to buy Sale Token. (185ms)
+    ✓ Should create referral (79ms)
+    ✓ Should fail in setting Sale Period Params. (87ms)
+    ✓ Should allow users to buy Sale Token. (946ms)
+    ✓ Should update Token price during sale. (91ms)
+    ✓ Should allow users to buy Sale Token with new rates. (543ms)
     ✓ Should stop Sale.
     ✓ Should not allow users to buy Sale Token after sale has ended.
-    ✓ Should allow users to withdraw Sale Token. (391ms)
-    ✓ Should allow Owner to withdraw funds (126ms)
-    ✓ Should check for airdop (94ms)
+    ✓ Should allow users to withdraw Sale Token. (339ms)
+    ✓ Should allow Owner to withdraw funds (122ms)
+    ✓ Should check for airdop (87ms)
 
 
   14 passing (4s)
