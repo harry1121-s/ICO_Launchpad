@@ -760,8 +760,6 @@ contract airDrop is Ownable{
 
     uint256 internal totalAirDrop;
 
-   
-
     function setAirDrop(address _saleToken, uint256 _airDropAmount)public onlyOwner{
         saleToken = _saleToken;
         maxAirDropAmount = _airDropAmount;
