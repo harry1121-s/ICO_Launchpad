@@ -58,8 +58,10 @@ describe("ICO_Launchpad", function () {
         await mytoken.deployed();
 
         const airDrop = await ethers.getContractFactory("airDrop");
-        adrop = await airDrop.deploy(mytoken.address, String(100 * 10**18));
+        adrop = await airDrop.deploy();
         await adrop.deployed();
+
+        await adrop.setAirDrop(mytoken.address, String(100 * 10**18));
 
         //console.log(await mytoken.totalSupply());
 
@@ -268,6 +270,7 @@ describe("ICO_Launchpad", function () {
 
         await atoken.connect(accountA).approve(presale.address, "10000000000000000000000");
         await presale.connect(accountA).buyToken(atoken.address, "10000000000000000000000", addr0);
+
         await btoken.connect(accountB).approve(presale.address, "10000000000000000000000");
         await presale.connect(accountB).buyToken(btoken.address, "10000000000000000000000", accountA.address);
 
