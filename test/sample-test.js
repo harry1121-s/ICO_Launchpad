@@ -61,6 +61,7 @@ describe("ICO_Launchpad", function () {
         adrop = await airDrop.deploy();
         await adrop.deployed();
 
+        await mytoken.approve(adrop.address, String(100 * 10**18));
         await adrop.setAirDrop(mytoken.address, String(100 * 10**18));
 
         //console.log(await mytoken.totalSupply());
@@ -79,7 +80,7 @@ describe("ICO_Launchpad", function () {
         accounts = await ethers.getSigners();
 
         airdropAddress = [accounts[5].address, accounts[6].address, accounts[7].address, accounts[8].address, accounts[9].address];
-        airdropAmount = [String(10**18), String(10**18), String(10**18), String(10**18), String(10**18)];
+        airdropAmount = [String(97 * 10**18), String(10**18), String(10**18), String(10**18), String(10**18)];
 
         start = 7 * 24 * 60 * 60;
         end = 14 * 24 * 60 * 60;
@@ -134,9 +135,6 @@ describe("ICO_Launchpad", function () {
         expect(String(lockRate)).to.equal(String(30));
         expect(tokensWL).to.equal(true);
         expect(tokenAmt).to.equal(String(2 * 10**18));
-        
-
-        await mytoken.transfer(adrop.address, String(200*10**18));
 
     });
 
@@ -366,8 +364,16 @@ describe("ICO_Launchpad", function () {
 
       await expect(adrop.connect(accountA).airdrop(airdropAddress, airdropAmount))
       .to.be.revertedWith("Ownable: caller is not the owner");
+      await expect(adrop.airdrop(airdropAddress, airdropAmount))
+      .to.be.revertedWith("Presale: Max airdrop amount exceeded");
+
+      airdropAmount = [String(95 * 10**18), String(10**18), String(10**18), String(10**18), String(10**18)];
       await adrop.airdrop(airdropAddress, airdropAmount);
-      expect(await mytoken.balanceOf(accounts[5].address)).to.equal(String(String(10**18)));
+
+    //   console.log(await mytoken.balanceOf(adrop.address));
+    //   console.log(await adrop.totalAirDropTokens());
+    //   console.log(await adrop.maxAirDropTokens());
+      expect(await mytoken.balanceOf(accounts[5].address)).to.equal(String(String(95 * 10**18)));
       expect(await mytoken.balanceOf(accounts[6].address)).to.equal(String(String(10**18)));
       expect(await mytoken.balanceOf(accounts[7].address)).to.equal(String(String(10**18)));
       expect(await mytoken.balanceOf(accounts[8].address)).to.equal(String(String(10**18)));

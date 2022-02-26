@@ -742,6 +742,22 @@ abstract contract Ownable is Context {
     }
 }
 
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
 
 // File contracts/airDrop.sol
 
@@ -753,9 +769,11 @@ pragma solidity ^0.8.4;
 contract airDrop is Ownable{
 
     using SafeMath for uint256;
-    using SafeERC20 for IERC20;
+    using SafeERC20 for IERC20Metadata;
 
     address public saleToken;
+    uint public saleTokenDec;
+
     uint256 internal maxAirDropAmount;
 
     uint256 internal totalAirDrop;
@@ -763,6 +781,9 @@ contract airDrop is Ownable{
     function setAirDrop(address _saleToken, uint256 _airDropAmount)public onlyOwner{
         saleToken = _saleToken;
         maxAirDropAmount = _airDropAmount;
+        saleTokenDec = IERC20Metadata(saleToken).decimals();
+        IERC20Metadata(saleToken).safeTransferFrom(msg.sender, address(this), maxAirDropAmount);
+
     }
 
     function airdrop(address[] memory _address, uint256[] memory _tokens)external onlyOwner{
@@ -770,9 +791,16 @@ contract airDrop is Ownable{
         for(uint256 i = 0; i < _address.length; i+=1){
             require(totalAirDrop.add(_tokens[i]) <= maxAirDropAmount, "Presale: Max airdrop amount exceeded");
             totalAirDrop = totalAirDrop.add(_tokens[i]);
-            IERC20(saleToken).safeTransfer(_address[i], _tokens[i]);
+            IERC20Metadata(saleToken).safeTransfer(_address[i], _tokens[i]);
         }
     }
 
+    function totalAirDropTokens()public view returns(uint256){
+        return totalAirDrop;
+    }
+
+    function maxAirDropTokens()public view returns(uint256){
+        return maxAirDropAmount;
+    }
 
 }
