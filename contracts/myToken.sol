@@ -619,6 +619,4 @@ contract myToken is ERC20("Harshit", "HAR"), Ownable{
         return 18;
     }
 
-    function burn()
-
 }
