@@ -113,8 +113,8 @@ const MainContainer = styled.div`
 const ReferralContainer = styled.div`
 
     box-shadow:0 10px 10px rgba(0,0,0,.6);
-    border-radius: 25px;
-    padding:20px;
+    border-radius: 35px;
+    padding:45px;
     display:flex;
     flex-direction: column;
     *{

@@ -419,21 +419,7 @@ function LandingPage({params}) {
 
           const bTokenContract = new web3.eth.Contract(tokenAbi, btoken);
 
-         /* contract.methods.totalTokensSold().call().then( function( info ) {
-              setTotalTokensSold((info/Math.pow(10,18)).toFixed(6))
-            
-           });
-
-           contract.methods.totalTokensforSale().call().then( function( info ) {
-            console.log("info:2 ", info);
-            setTotalTokens((info/Math.pow(10,18)));
-          });
     
-          contract.methods.rate().call().then( function( info ) {
-              setRate((1/(parseInt(info)/Math.pow(10,18))));
-            console.log("rate ", info);
-          });*/
-
           myTokenContract.methods.decimals().call().then( function( info ) {
             console.log("mytokendecimals ", info);
             setMyTokenDecimals(info);
@@ -506,8 +492,7 @@ function LandingPage({params}) {
 
 
     const buySimplex = async () => {
-
-
+      
         if(accountAddress===""){
             await connectToWallet();
         }
@@ -526,12 +511,15 @@ function LandingPage({params}) {
 
         if(selectedCurrencyAddress === bnbToken){
             const amount = (buyAmount*Math.pow(10,bnbDecimals)).toLocaleString('fullwide', { useGrouping: false });
+            console.log("buytokenbnnb",amount)
             let nftTxn = await contract.methods.buyToken(bnbToken,'0', String(sendReferralAddress)).send({from: accountAddress, value: amount});
               
         }
         if(selectedCurrencyAddress=== atoken){
              const amount = (buyAmount*Math.pow(10,atokenDecimals)).toLocaleString('fullwide', { useGrouping: false });
+             console.log("buytokenmatic",amount)
             let nftTxn = await aTokenContract.methods.approve(contractAddress,amount).send({from: accountAddress});
+            console.log('nfttxn',nftTxn)
             if(nftTxn){
                 let buyToken=  await contract.methods.buyToken(atoken,amount,String(sendReferralAddress)).send({from: accountAddress});
              // let buyAToken = await contract.methods.buyToken(String(atoken),String((buyAmount*Math.pow(10,atokenDecimals))), String(referral)).send({from: accountAddress });
@@ -539,6 +527,7 @@ function LandingPage({params}) {
         }
         if(selectedCurrencyAddress=== btoken){
             const amount = (buyAmount*Math.pow(10,btokenDecimals)).toLocaleString('fullwide', { useGrouping: false });
+            console.log("buytokenustd",amount)
 
             let nftTxn = await bTokenContract.methods.approve(contractAddress,amount).send({from: accountAddress});
             console.log("nftTxn",nftTxn)
@@ -578,12 +567,17 @@ function LandingPage({params}) {
         console.log("TESTING");
        
         console.log('#####',smplxAmount);
-        console.log("MYCURRENCY",selectedCurrencyAddress);       
+        console.log("MYCURRENCY",selectedCurrencyAddress);   
+
+       
+        
+      setTimeout(()=> {
         contract.methods.getTokenAmount(selectedCurrencyAddress,amount).call().then( function( info ) {
             console.log("entercontract ", info);
           
             setSmplxAmount((info/Math.pow(10,mytokenDecimals)).toFixed(6));
             console.log('@@@@@@',smplxAmount)})
+        },500)
 
    
         }, [buyAmount,currency.name,selectedCurrencyAddress]);
@@ -807,7 +801,7 @@ function LandingPage({params}) {
                         </Border>
                     </TransactionContainer>
                     <CheckboxContainer>
-                        <Checkbox onChange={handleCheckBox} /><p>Have a referal?</p>
+                        <Checkbox onChange={handleCheckBox} /><p>Have a referral?</p>
 
                     </CheckboxContainer>
 
