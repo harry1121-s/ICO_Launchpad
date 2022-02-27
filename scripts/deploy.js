@@ -1,5 +1,6 @@
 const CONFIG = require("../credentials.json");
-
+var fs = require('fs');
+const linkABI = (JSON.parse(fs.readFileSync('./artifacts/contracts/myToken.sol/myToken.json', 'utf8'))).abi;
 const { web3, ethers } = require('hardhat');
 
 contract("Presale Deployment", () => {
@@ -77,6 +78,9 @@ contract("Presale Deployment", () => {
     // })
 
     it("Should set the airdrop", async() => {
+      const tokenLink = new ethers.Contract("0x9a9f13D3C3127FFdc37385b7e7dc1f758bd8e6AB", linkABI, account);
+      tx = await tokenLink.approve(adrop.address, "1000000000000000000000");
+      await tx.wait();
       tx = await adrop.setAirDrop("0x9a9f13D3C3127FFdc37385b7e7dc1f758bd8e6AB", "1000000000000000000000");
       await tx.wait();
     })

@@ -774,9 +774,9 @@ contract airDrop is Ownable{
     address public saleToken;
     uint public saleTokenDec;
 
-    uint256 internal maxAirDropAmount;
+    uint256 public maxAirDropAmount;
 
-    uint256 internal totalAirDrop;
+    uint256 public totalAirDrop;
 
     function setAirDrop(address _saleToken, uint256 _airDropAmount)public onlyOwner{
         saleToken = _saleToken;
@@ -795,12 +795,12 @@ contract airDrop is Ownable{
         }
     }
 
-    function totalAirDropTokens()public view returns(uint256){
-        return totalAirDrop;
-    }
+    // function totalAirDropTokens()public view returns(uint256){
+    //     return totalAirDrop;
+    // }
 
-    function maxAirDropTokens()public view returns(uint256){
-        return maxAirDropAmount;
-    }
+    // function maxAirDropTokens()public view returns(uint256){
+    //     return maxAirDropAmount;
+    // }
 
 }

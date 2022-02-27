@@ -371,8 +371,8 @@ describe("ICO_Launchpad", function () {
       await adrop.airdrop(airdropAddress, airdropAmount);
 
     //   console.log(await mytoken.balanceOf(adrop.address));
-    //   console.log(await adrop.totalAirDropTokens());
-    //   console.log(await adrop.maxAirDropTokens());
+    //   console.log(await adrop.totalAirDrop());
+    //   console.log(await adrop.maxAirDropAmount());
       expect(await mytoken.balanceOf(accounts[5].address)).to.equal(String(String(95 * 10**18)));
       expect(await mytoken.balanceOf(accounts[6].address)).to.equal(String(String(10**18)));
       expect(await mytoken.balanceOf(accounts[7].address)).to.equal(String(String(10**18)));
