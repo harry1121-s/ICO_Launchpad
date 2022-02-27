@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Web3 from "web3";
 
-function Referral({ accountAddress }) {
+function Referral({ accountAddress , connectToWallet}) {
     const [userShare, setUserShare] = useState(250);
     const [partnerShare, setPartnerShare] = useState(250);
     const [account,setAccountAddress] = useState(accountAddress);
@@ -29,6 +29,12 @@ function Referral({ accountAddress }) {
         const {ethereum}=window;
       
         const web3 = new Web3(window.ethereum);
+        const chainId = await web3.eth.net.getId();
+
+        if((accountAddress==="" ) || (chainId!==97)){
+            await connectToWallet();
+            return
+        }
 
         const contract = new web3.eth.Contract(abi, contractAddress);
 
@@ -39,7 +45,6 @@ function Referral({ accountAddress }) {
          }catch(error){
            console.log(error)
          }
-       console.log("usershare",userShare);
 
         let nftTxn = await contract.methods.createReferral((userShare)).send({from: account});
 

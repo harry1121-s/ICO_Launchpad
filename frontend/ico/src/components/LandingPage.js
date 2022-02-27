@@ -18,8 +18,11 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 function LandingPage({params}) {
 
-    const {rate,tokensSold,totalTokens,connectToWallet,accountAddress} = params;
-    console.log("params",rate,tokensSold,totalTokens)
+    const {rate,tokensSold,totalTokens,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals} = params;
+   // console.log("params",rate,tokensSold,totalTokens)
+   // console.log("checkdecimals",atokenDecimals,btokenDecimals,atokenrate,btokenrate)
+
+   // console.log("check",rate,atokenrate,btokenrate)
 
     var contractAddress = '0x64d7DDD192A58D5A5f0607515921889C96a3BB24';
     var abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"}],"name":"addWhiteListedToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"address","name":"_referralId","type":"address"}],"name":"buyToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"buyers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"buyersAmount","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"lockingPeriod1Claimed","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_referralPercent","type":"uint256"}],"name":"createReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"getTokenAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"percentTokens1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleEndTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"bool","name":"isReferrer","type":"bool"},{"internalType":"uint256","name":"percentage","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"saleToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleTokenDec","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_preSaleStartTime","type":"uint256"},{"internalType":"uint256","name":"_preSaleEndTime","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod1","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod2","type":"uint256"},{"internalType":"uint256","name":"_percentTokens1","type":"uint256"}],"name":"setSalePeriodParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleToken","type":"address"},{"internalType":"uint256","name":"_totalTokensforSale","type":"uint256"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"setSaleTokenParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stopSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenPrices","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenWL","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensforSale","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"updateTokenRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdrawCurrency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
@@ -377,9 +380,9 @@ function LandingPage({params}) {
         "img": ""
     });
 
-    const INFURA_ID = '30849212aa874223b9cff27487070150'
+    //const INFURA_ID = '30849212aa874223b9cff27487070150'
 
-    const providerOptions = {
+    /*const providerOptions = {
      walletconnect: {
         package: WalletConnectProvider, // required
         options: {
@@ -389,7 +392,7 @@ function LandingPage({params}) {
       binancechainwallet: {
         package: true
       }
-    }
+    }*/
 
 
     const [currencyOptionVisibility, setCurrencyOptionVisibility] = useState(false);
@@ -397,14 +400,17 @@ function LandingPage({params}) {
     const [smplxAmount, setSmplxAmount] = useState(0.00);
     const [referral, setReferral] = useState(false);
     const [referralAddress, setReferralAddress] = useState("")
+
+   const [atokenrate, setATokenRate] = useState(0);
+  const [btokenrate, setBTokenRate] = useState(0);
     //const [accountAddress, setAccountAddress] = useState("");
     //const [rate, setRate] = useState(0);
     //const [tokensSold, setTotalTokensSold] = useState(0);
     //const [totalTokens, setTotalTokens] = useState(0);
     const [defaultProvider, setDefaultProvider] = useState("");
-    const  [mytokenDecimals,setMyTokenDecimals] = useState(Math.pow(10,0));
-    const  [atokenDecimals,setATokenDecimals] = useState(Math.pow(10,0));
-    const  [btokenDecimals,setBTokenDecimals] = useState(Math.pow(10,0));
+    //const  [mytokenDecimals,setMyTokenDecimals] = useState(Math.pow(10,0));
+    //const  [atokenDecimals,setATokenDecimals] = useState(Math.pow(10,0));
+   // const  [btokenDecimals,setBTokenDecimals] = useState(Math.pow(10,0));
     const [selectedCurrencyAddress, setSelectedCurrencyAddress] = useState(bnbToken);
 
     const bnbDecimals = 18;
@@ -412,33 +418,18 @@ function LandingPage({params}) {
     useEffect(() => {
 
       const contract = new web3.eth.Contract(abi, contractAddress);
-
-          const myTokenContract = new web3.eth.Contract(tokenAbi, mytoken);
-
-          const aTokenContract = new web3.eth.Contract(tokenAbi, atoken);
-
-          const bTokenContract = new web3.eth.Contract(tokenAbi, btoken);
-
-    
-          myTokenContract.methods.decimals().call().then( function( info ) {
-            console.log("mytokendecimals ", info);
-            setMyTokenDecimals(info);
+          contract.methods.tokenPrices(atoken).call().then( function( info ) {
+            console.log("atokenlandingpage",atokenDecimals)
+            setATokenRate(1/(parseInt(info)/Math.pow(10,atokenDecimals)));
           });
-
-          aTokenContract.methods.decimals().call().then( function( info ) {
-            console.log("atokendecimals ", info);
-            setATokenDecimals(info);
-          });
-
-          bTokenContract.methods.decimals().call().then( function( info ) {
-            console.log("btokendecimals ", info);
-            setBTokenDecimals(info);
+          contract.methods.tokenPrices(btoken).call().then( function( info ) {
+            setBTokenRate(1/(parseInt(info)/Math.pow(10,btokenDecimals)));
           });
 
 
 
 
-    } , [])
+    } , [atokenDecimals,btokenDecimals]);
    
     const history = useNavigate();
 
@@ -492,9 +483,14 @@ function LandingPage({params}) {
 
 
     const buySimplex = async () => {
-      
-        if(accountAddress===""){
+
+      const chainId = await web3.eth.net.getId();
+      console.log("chainId",chainId)
+         
+        if((accountAddress==="")  || (chainId!==97)){
+          console.log("insidechain")
             await connectToWallet();
+            return
         }
        
         const contract = new web3.eth.Contract(abi, contractAddress);
@@ -545,24 +541,30 @@ function LandingPage({params}) {
 
         const contract = new web3.eth.Contract(abi, contractAddress);
         var amount;
+        console.log("enteruseeffect",rate,atokenrate,btokenrate,buyAmount)
         console.log("enteruseeffect")
-        console.log('buyAmount',buyAmount)
-        console.log('currency',currency.name);
         if(currency && (currency.name === "" || currency.name === "bnb")){
                 setSelectedCurrencyAddress(bnbToken);
-                var amount1= (buyAmount*(Math.pow(10,bnbDecimals)));
-                amount = String(amount1.toLocaleString('fullwide', { useGrouping: false }));
+                console.log("buyamountbnb",buyAmount)
+                setSmplxAmount((rate*buyAmount).toFixed(6));
+               // var amount1= (buyAmount*(Math.pow(10,bnbDecimals)));
+              //  amount = String(amount1.toLocaleString('fullwide', { useGrouping: false }));
         }
         if(currency && (currency.name === "matic")){
             setSelectedCurrencyAddress(atoken);
-            var amount1= (buyAmount*(Math.pow(10,atokenDecimals)));
-            amount = amount1.toLocaleString('fullwide', { useGrouping: false });
-            console.log("atokenamount",amount)
+            console.log("buyamountatoken",buyAmount,atokenrate,atokenrate*buyAmount)
+            setSmplxAmount((atokenrate*buyAmount).toFixed(6));
+           // var amount1= (buyAmount*(Math.pow(10,atokenDecimals)));
+           // amount = amount1.toLocaleString('fullwide', { useGrouping: false });
+          //  console.log("atokenamount",amount)
         }
         if(currency && (currency.name === "usdt")){
-            var amount1= (buyAmount*(Math.pow(10,btokenDecimals)));
-            amount = String(amount1.toLocaleString('fullwide', { useGrouping: false }));
+            //var amount1= (buyAmount*(Math.pow(10,btokenDecimals)));
+           // amount = String(amount1.toLocaleString('fullwide', { useGrouping: false }));
             setSelectedCurrencyAddress(btoken);
+            console.log("buyamountatoken",buyAmount)
+            setSmplxAmount((btokenrate*buyAmount).toFixed(6));
+
         }
         console.log("TESTING");
        
@@ -571,23 +573,29 @@ function LandingPage({params}) {
 
        
         
-      setTimeout(()=> {
+    /*  setTimeout(()=> {
         contract.methods.getTokenAmount(selectedCurrencyAddress,amount).call().then( function( info ) {
             console.log("entercontract ", info);
           
             setSmplxAmount((info/Math.pow(10,mytokenDecimals)).toFixed(6));
             console.log('@@@@@@',smplxAmount)})
-        },500)
+        },500)*/
 
    
-        }, [buyAmount,currency.name,selectedCurrencyAddress]);
+        }, [buyAmount,currency.name]);
 
     const handleCheckBox = (e) => {
         setReferral(e.target.checked);
     }
 
 
-   const createReferral = ()=>{
+   const createReferral = async()=>{
+
+    if(accountAddress===""){
+      await connectToWallet();
+      return
+  }
+
        history('/referral')
    }
 
@@ -616,6 +624,13 @@ function LandingPage({params}) {
 
           contract.methods.rate().call().then( function( info ) {
             console.log("info: ", info);   //priceofonetokeninbnb
+          });
+
+          contract.methods.tokenPrices(atoken).call().then( function( info ) {
+            console.log("ustdtokenprice ", info);
+          });
+          contract.methods.tokenPrices(btoken).call().then( function( info ) {
+            console.log("ustdtokenprice ", info);
           });
 
       
@@ -686,7 +701,7 @@ function LandingPage({params}) {
             console.log("rate ", info);
           });*/
 
-          myTokenContract.methods.decimals().call().then( function( info ) {
+          /*myTokenContract.methods.decimals().call().then( function( info ) {
             console.log("mytokendecimals ", info);
             setMyTokenDecimals(info);
           });
@@ -711,7 +726,7 @@ function LandingPage({params}) {
 
           contract.methods.tokenPrices(btoken).call().then( function( info ) {
             console.log("ustdtokenprice ", info);
-          });
+          });*/
 
 
 
@@ -722,13 +737,10 @@ function LandingPage({params}) {
 
     return (
         <MainContainer>
-
-
             <Button onClick={() => {connectToWallet()}}>
                 <AccountBalanceWalletIcon />
                 <h3>{(accountAddress === "") ? "Connect Wallet" : `${accountAddress}`}</h3>
             </Button>
-
             {/* <Referral accountAddress={accountAddress} /> */}
             {/* ######################################################################################### */}
             <MainInfoContainer>
@@ -754,9 +766,7 @@ function LandingPage({params}) {
                         </Button>
                     </SaleInfo>
                 </MainInfo>
-
                 <MainTransactionContainer>
-
                     <TransactionContainer>
                         <Border>
                             <LabelContainer>

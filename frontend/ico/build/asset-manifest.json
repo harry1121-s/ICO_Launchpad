@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.63879b4b.css",
-    "main.js": "/static/js/main.bdf70f16.js",
+    "main.js": "/static/js/main.b99b641e.js",
     "static/js/787.8d78d4c7.chunk.js": "/static/js/787.8d78d4c7.chunk.js",
     "static/media/simplex_ICO PAD.png": "/static/media/simplex_ICO PAD.1c36754c6eb5d1424474.png",
     "static/media/simplex_logo_white.png": "/static/media/simplex_logo_white.899169c3305869e854b2.png",
@@ -20,11 +20,11 @@
     "static/media/coinmarketcap2.png": "/static/media/coinmarketcap2.f7aaab44fb84d935410b.png",
     "index.html": "/index.html",
     "main.63879b4b.css.map": "/static/css/main.63879b4b.css.map",
-    "main.bdf70f16.js.map": "/static/js/main.bdf70f16.js.map",
+    "main.b99b641e.js.map": "/static/js/main.b99b641e.js.map",
     "787.8d78d4c7.chunk.js.map": "/static/js/787.8d78d4c7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.63879b4b.css",
-    "static/js/main.bdf70f16.js"
+    "static/js/main.b99b641e.js"
   ]
 }
