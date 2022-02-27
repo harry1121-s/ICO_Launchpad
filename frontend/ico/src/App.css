@@ -1,0 +1,15 @@
+@font-face {
+  font-family: Poppins;
+  src: url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
+}
+* {
+  margin: 0;
+  overflow-x: hidden;
+  /* border: 1px solid black; */
+}
+
+body {
+  width: 100vw;
+  background: white;
+  font-family: "Poppins", sans-serif;
+}
