@@ -61,8 +61,8 @@ describe("ICO_Launchpad", function () {
         adrop = await airDrop.deploy();
         await adrop.deployed();
 
-        await mytoken.approve(adrop.address, String(100 * 10**18));
-        await adrop.setAirDrop(mytoken.address, String(100 * 10**18));
+        await mytoken.approve(adrop.address, (100 * 10**18).toLocaleString('fullwide', { useGrouping: false }));
+        await adrop.setAirDrop(mytoken.address, (100 * 10**18).toLocaleString('fullwide', { useGrouping: false }));
 
         //console.log(await mytoken.totalSupply());
 
