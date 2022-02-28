@@ -371,6 +371,18 @@ function Main() {
 
   const bTokenContract = new web3.eth.Contract(tokenAbi, btoken);
 
+ 
+
+  console.log("chainidtest",chainId);
+
+
+  ethereum.on('chainChanged', (chainId) => {
+    // Handle the new chain.
+    // Correctly handling chain changes can be complicated.
+    // We recommend reloading the page unless you have good reason not to.
+    window.location.reload();
+  });
+
 
   const fetchTokenPrices = async () => {
     await myTokenContract.methods.decimals().call().then( function( info ) {
@@ -393,7 +405,7 @@ function Main() {
 
   useEffect(() => {
  
-
+console.log("gggggggggg")
   contract.methods.totalTokensSold().call().then( function( info ) {
       setTotalTokensSold((info/Math.pow(10,18)).toFixed(6))
     
@@ -409,8 +421,6 @@ function Main() {
     console.log("rate ", info);
   });
 
-  fetchTokenPrices()
-
   //const contract = new web3.eth.Contract(abi, contractAddress);
  /* contract.methods.tokenPrices(atoken).call().then( function( info ) {
     console.log("insidetokendecimals",atokenDecimals);
@@ -420,8 +430,23 @@ function Main() {
     setBTokenRate(1/(parseInt(info)/Math.pow(10,18)));
   });*/
 
+  myTokenContract.methods.decimals().call().then( function( info ) {
+    console.log("mytokendecimals ", info);
+    setMyTokenDecimals(info);
+  });
 
-    }, []);
+   aTokenContract.methods.decimals().call().then( function( info ) {
+    console.log("atokendecimals ", info);
+    setATokenDecimals(info);
+  });
+
+   bTokenContract.methods.decimals().call().then( function( info ) {
+    console.log("btokendecimals ", info);
+    setBTokenDecimals(info);
+  });
+
+
+    }, [accountAddress]);
     //const chainId = await web3.eth.net.getId();
 
 
