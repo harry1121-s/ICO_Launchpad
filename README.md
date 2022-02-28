@@ -22,3 +22,5 @@ For frontend:
 6. A folder build is created "frontend/ico/build/", containing the production files 
 
   ICO_Launchpad git:(main) npm i hardhat
+
+  
