@@ -20,3 +20,5 @@ For frontend:
 4. To start the frontend on localhost, run "npm start"
 5. To build the frontend for production, run "npm run build"
 6. A folder build is created "frontend/ico/build/", containing the production files 
+
+  ICO_Launchpad git:(main) npm i hardhat
