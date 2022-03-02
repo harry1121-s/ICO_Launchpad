@@ -4,12 +4,12 @@ const linkABI = (JSON.parse(fs.readFileSync('./artifacts/contracts/myToken.sol/m
 const { web3, ethers } = require('hardhat');
 
 contract("Presale Deployment", () => {
-  //   let presale;
-	// let mytoken;
-	// let atoken;
-	// let btoken;
+    let presale;
+    let mytoken;
+    let atoken;
+    let btoken;
     let tx;
-  let adrop;
+    let adrop;
 
     const provider = new ethers.providers.JsonRpcProvider(CONFIG["BSCTESTNET"]["URL"]);
     const signer = new ethers.Wallet(CONFIG["BSCTESTNET"]["PKEY"]);
