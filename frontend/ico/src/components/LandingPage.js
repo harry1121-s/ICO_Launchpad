@@ -13,16 +13,18 @@ import Web3Modal, { PROVIDER_WRAPPER_CLASSNAME } from "web3modal";
 
 
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { DateRangeRounded, KeyboardReturnRounded, Navigation } from '@mui/icons-material';
 
 
 
 function LandingPage({params}) {
 
-    const {rate,tokensSold,totalTokens,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals} = params;
+    const {rate,tokensSold,totalTokens,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals,preSaleEndTime,preSaleStartTime,lockingPeriod1,lockingPeriod2} = params;
    // console.log("params",rate,tokensSold,totalTokens)
    // console.log("checkdecimals",atokenDecimals,btokenDecimals,atokenrate,btokenrate)
 
    // console.log("check",rate,atokenrate,btokenrate)
+   //console.log("presale",presale)
 
     var contractAddress = '0x922fAb9C24aD249F5Db0A621B0fD17d3dfA905d8';
     var abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"}],"name":"addWhiteListedToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"address","name":"_referralId","type":"address"}],"name":"buyToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"buyers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"buyersAmount","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"lockingPeriod1Claimed","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_referralPercent","type":"uint256"}],"name":"createReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"getTokenAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"percentTokens1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleEndTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"bool","name":"isReferrer","type":"bool"},{"internalType":"uint256","name":"percentage","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"saleToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleTokenDec","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_preSaleStartTime","type":"uint256"},{"internalType":"uint256","name":"_preSaleEndTime","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod1","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod2","type":"uint256"},{"internalType":"uint256","name":"_percentTokens1","type":"uint256"}],"name":"setSalePeriodParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleToken","type":"address"},{"internalType":"uint256","name":"_totalTokensforSale","type":"uint256"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"setSaleTokenParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stopSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenPrices","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenWL","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensforSale","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"updateTokenRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdrawCurrency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
@@ -415,6 +417,50 @@ function LandingPage({params}) {
 
     const bnbDecimals = 18;
 
+
+    const dateConversion = (date) => {
+      var ts = date;
+
+// convert unix timestamp to milliseconds
+var ts_ms = ts * 1000;
+
+// initialize new Date object
+var date_ob = new Date(ts_ms);
+
+// year as 4 digits (YYYY)
+var year = date_ob.getFullYear();
+
+// month as 2 digits (MM)
+var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+// date as 2 digits (DD)
+var date = ("0" + date_ob.getDate()).slice(-2);
+
+// hours as 2 digits (hh)
+var hours = ("0" + date_ob.getHours()).slice(-2);
+
+// minutes as 2 digits (mm)
+var minutes = ("0" + date_ob.getMinutes()).slice(-2);
+
+// seconds as 2 digits (ss)
+var seconds = ("0" + date_ob.getSeconds()).slice(-2);
+
+// date as YYYY-MM-DD format
+console.log("Date as DD-MM-DD Format: " + year + "-" + month + "-" + date);
+
+console.log("\r\n");
+
+// date & time as YYYY-MM-DD hh:mm:ss format: 
+return( date + "/" + month  + " " + hours + ":" + minutes + ":" + seconds);
+
+console.log("\r\n");
+
+// time as hh:mm format: 
+//return("Time as hh:mm Format: " + hours + ":" + minutes);
+
+    }
+
+
     useEffect(() => {
 
       const contract = new web3.eth.Contract(abi, contractAddress);
@@ -734,26 +780,25 @@ function LandingPage({params}) {
 
          //fetchInitialInfo(web3)
     }
-
+    const date = new Date(preSaleStartTime)
+    console.log(date.getDate())
     return (
         <MainContainer>
             <Button onClick={() => {connectToWallet()}}>
                 <AccountBalanceWalletIcon />
                 <h3>{(accountAddress === "") ? "Connect Wallet" : `${accountAddress}`}</h3>
             </Button>
-            {/* <Referral accountAddress={accountAddress} /> */}
-            {/* ######################################################################################### */}
+            <Button onClick={() => {history('/claim')}}> <h3>Claim</h3></Button>
             <MainInfoContainer>
                 <MainInfo>
                     <h1>Launchpad <span>PreSale</span> is Live</h1>
                     <h2>Price of <span>{1}BNB</span> per <span>{rate} $SMPLX</span></h2>
-
+                    <h2>PreSale Ends on {dateConversion(preSaleEndTime)}</h2>
                     <ProgressBarContainer>
                         <SliderContainer>
                             <CompletedProgress style={{ width: `${(parseFloat(tokensSold) / parseFloat(totalTokens) * 100)}%` }} ></CompletedProgress>
                             <TotalProgress></TotalProgress>
                         </SliderContainer>
-
                         <ProgressRange>
                             <h4>{`${parseFloat(tokensSold).toLocaleString("en")}`}<div>$SMPLX</div></h4>
                             <h4>{`${parseFloat(totalTokens).toLocaleString("en")}`}<div>$SMPLX</div></h4>
@@ -842,7 +887,7 @@ const MainContainer = styled.div`
     padding:20px 0;
     align-items:center;
     justify-content: center;
-
+    
     >Button{
         background-color:#48dca8;
         border-radius:50px;
@@ -869,6 +914,33 @@ const MainContainer = styled.div`
             padding:0 10px;
         }
     }
+    >Button{
+      background-color:#48dca8;
+      border-radius:50px;
+      color:white;
+      padding:0;
+      border:1px solid #48dca8;
+      transition:all 0s ;
+      :hover{
+          background-color:white;
+          >h3{
+              color:black;
+          }
+          >.MuiSvgIcon-root{
+              background-color:#48dca8;
+          }
+      }
+      >.MuiSvgIcon-root{
+          border-radius:50px;
+          padding:15px;
+          font-size:24px;
+          border:1px solid #48dca8;
+      }
+      >h3{
+          padding:0 10px;
+      }
+  }
+  
 `;
 
 
@@ -878,9 +950,9 @@ const MainInfoContainer = styled.div`
     align-items: center;
     justify-content:space-evenly;
     flex-wrap:wrap; 
-
     margin:20px 0;
     padding:20px 0;
+    direction:row
 
 `;
 
@@ -898,12 +970,11 @@ const MainInfo = styled.div`
     }
     };
     h2{
-        margin-bottom:70px;
+        margin-bottom:30px;
     }
     >h2>span{
         color:#548CFF;
     }
-    
     >h3{
         color:#00b638;;
     }

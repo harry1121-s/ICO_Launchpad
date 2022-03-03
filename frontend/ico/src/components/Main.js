@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom
 import Referral from './Referral';
 import LandingPage from './LandingPage';
 import Web3 from "web3";
+import Countdown from 'react-countdown';
 
 function Main() {
 
@@ -359,9 +360,28 @@ function Main() {
   const  [atokenDecimals,setATokenDecimals] = useState(Math.pow(10,0));
   const  [btokenDecimals,setBTokenDecimals] = useState(Math.pow(10,0));
   const [chainId,setChainId] = useState(0);
+  const [preSaleEndTime,setPreSaleEndTime] = useState(0);
+  const [preSaleStartTime,setPreSaleStartTime] = useState(0);
+  const [lockingPeriod1,setLockingPeriod1] = useState(0);
+  const [lockingPeriod2,setLockingPeriod2] = useState(0);
   //const [atokenrate, setATokenRate] = useState(0);
  // const [btokenrate, setBTokenRate] = useState(0);
 
+
+ const calculateTimeLeft = (difference) => {
+  
+  let timeLeft = {};
+ 
+  if (difference > 0) {
+    timeLeft = {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60)
+    };
+  }
+  console.log("timeleft",timeLeft)
+}
 
 
   const contract = new web3.eth.Contract(abi, contractAddress);
@@ -375,13 +395,14 @@ function Main() {
 
   console.log("chainidtest",chainId);
 
-
+try{
+ if(ethereum){
   ethereum.on('chainChanged', (chainId) => {
-    // Handle the new chain.
-    // Correctly handling chain changes can be complicated.
-    // We recommend reloading the page unless you have good reason not to.
     window.location.reload();
-  });
+  })};
+}catch(err){
+  console.log("error",err);
+}
 
 
   const fetchTokenPrices = async () => {
@@ -445,6 +466,22 @@ console.log("gggggggggg")
     setBTokenDecimals(info);
   });
 
+  contract.methods.preSaleEndTime().call().then( function( info ) {
+   setPreSaleEndTime(info);
+   console.log("preSaleEndTime ", info);
+});
+
+contract.methods.preSaleStartTime().call().then( function( info ) {
+setPreSaleStartTime(info);
+});
+
+contract.methods.lockingPeriod1().call().then( function( info ) {
+setLockingPeriod1(info);
+});
+
+contract.methods.lockingPeriod2().call().then( function( info ) {
+  setLockingPeriod2(info);
+  });
 
     }, [accountAddress]);
     //const chainId = await web3.eth.net.getId();
@@ -474,10 +511,10 @@ console.log("gggggggggg")
   return (
     <div className="App"> 
     <Router>
-    
         <Routes>
-          <Route path="/" element={<LandingPage  params={{tokensSold, totalTokens, rate,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals,chainId}}/> } />
-        <Route path="/referral" element={<Referral accountAddress={accountAddress} connectToWallet={connectToWallet} chainId={chainId}/>} />
+          <Route path="/" element={<LandingPage  params={{tokensSold, totalTokens, rate,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals,chainId,preSaleEndTime,preSaleStartTime,lockingPeriod1,lockingPeriod2}}/> } />
+        <Route path="/referral" element={<Referral accountAddress={accountAddress} connectToWallet={connectToWallet} chainId={chainId} preSaleEndTime={preSaleEndTime}/>} />
+        <Route path="/claim" element={<Referral/>} />
         </Routes>
     
     </Router>
