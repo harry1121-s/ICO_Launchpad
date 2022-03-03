@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import Referral from './Referral';
 import LandingPage from './LandingPage';
+import Claim from './Claim';
 import Web3 from "web3";
 import Countdown from 'react-countdown';
 
@@ -514,7 +515,7 @@ contract.methods.lockingPeriod2().call().then( function( info ) {
         <Routes>
           <Route path="/" element={<LandingPage  params={{tokensSold, totalTokens, rate,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals,chainId,preSaleEndTime,preSaleStartTime,lockingPeriod1,lockingPeriod2}}/> } />
         <Route path="/referral" element={<Referral accountAddress={accountAddress} connectToWallet={connectToWallet} chainId={chainId} preSaleEndTime={preSaleEndTime}/>} />
-        <Route path="/claim" element={<Referral/>} />
+        <Route path="/claim" element={<Claim/>} />
         </Routes>
     
     </Router>

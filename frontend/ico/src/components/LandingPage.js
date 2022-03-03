@@ -784,11 +784,13 @@ console.log("\r\n");
     console.log(date.getDate())
     return (
         <MainContainer>
+          <ButtonContainer1>
+            <Button className="hello" onClick={() => {history('/claim')}}> <h3>Claim $SMPLX</h3></Button>
             <Button onClick={() => {connectToWallet()}}>
                 <AccountBalanceWalletIcon />
                 <h3>{(accountAddress === "") ? "Connect Wallet" : `${accountAddress}`}</h3>
             </Button>
-            <Button onClick={() => {history('/claim')}}> <h3>Claim</h3></Button>
+            </ButtonContainer1>
             <MainInfoContainer>
                 <MainInfo>
                     <h1>Launchpad <span>PreSale</span> is Live</h1>
@@ -943,6 +945,46 @@ const MainContainer = styled.div`
   
 `;
 
+const ButtonContainer1 = styled.div`
+    //*{border:1px solid black}
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    margin:0px 20px;
+     padding:20px 0;
+    // direction:row;
+
+>.hello{
+  padding:25px 0px
+}
+>Button{background-color:#48dca8;
+  border-radius:50px;
+  color:white;
+  padding:0;
+  border:1px solid #48dca8;
+  transition:all 0s ;
+  margin:20px ;
+  padding:10px 0;
+  :hover{
+      background-color:white;
+      >h3{
+          color:black;
+      }
+      >.MuiSvgIcon-root{
+        background-color:#48dca8;
+    }
+     
+  }
+  >.MuiSvgIcon-root{
+    border-radius:50px;
+    padding:15px;
+    font-size:24px;
+    border:1px solid #48dca8;
+}
+  >h3{
+      padding:0 10px;
+}}
+`;
 
 const MainInfoContainer = styled.div`
     width:100%;

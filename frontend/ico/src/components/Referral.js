@@ -72,10 +72,6 @@ function Referral({ accountAddress , connectToWallet,preSaleEndTime}) {
                     <h4>Your partner will earn</h4>
                     <h2>{`${partnerShare / 1000}%`}</h2>
                 </PartnerShareContainer>
-
-                <Countdown date={ Date.now().toLocaleString() + Date(1646469292).toLocaleString()} />,
-    
-
             </SliderInfo>
             <Button onClick={generateReferral}>Generate</Button>
         </ReferralContainer>
