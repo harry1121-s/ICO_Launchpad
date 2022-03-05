@@ -515,9 +515,8 @@ contract.methods.lockingPeriod2().call().then( function( info ) {
         <Routes>
           <Route path="/" element={<LandingPage  params={{tokensSold, totalTokens, rate,connectToWallet,accountAddress,mytokenDecimals,atokenDecimals,btokenDecimals,chainId,preSaleEndTime,preSaleStartTime,lockingPeriod1,lockingPeriod2}}/> } />
         <Route path="/referral" element={<Referral accountAddress={accountAddress} connectToWallet={connectToWallet} chainId={chainId} preSaleEndTime={preSaleEndTime}/>} />
-        <Route path="/claim" element={<Claim/>} />
+        <Route path="/claim" element={<Claim params={{preSaleEndTime,preSaleStartTime,lockingPeriod1,lockingPeriod2,accountAddress,mytokenDecimals,connectToWallet,contract}} />} />
         </Routes>
-    
     </Router>
     </div>
   );
