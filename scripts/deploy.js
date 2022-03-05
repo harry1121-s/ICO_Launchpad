@@ -43,9 +43,9 @@ contract("Presale Deployment", () => {
 	  WLTokens = ["0x603Ce222a02cE7E77E0cA3a9BB2870B821Dda8B3", "0x5009b8bBa2e4dEa6D86198F44743f732264D4349"];
       price = ["10000000000000000000", "5000000000000000000000"];
 
-      end = 2 * 24 * 60 * 60;
-      lock1 = 4 * 24 * 60 * 60;
-      lock2 = 6 * 24 * 60 * 60;
+      end = 10 * 60;
+      lock1 = 30 * 60;
+      lock2 = 60 * 60;
 
 
       console.log({
@@ -76,7 +76,7 @@ contract("Presale Deployment", () => {
 		tx = await presale.addWhiteListedToken(WLTokens, price);
 		await tx.wait()
 		currentTime = Math.floor(Date.now() / 1000);
-		tx = await presale.setSalePeriodParams( currentTime + 1000, currentTime + end, currentTime + lock1, currentTime + lock2, 30);
+		tx = await presale.setSalePeriodParams( currentTime + 10, currentTime + end, currentTime + lock1, currentTime + lock2, 30);
 		await tx.wait()
     })
 

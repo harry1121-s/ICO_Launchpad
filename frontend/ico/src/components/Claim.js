@@ -14,9 +14,10 @@ function Claim({params}) {
     const [claimButton,setClaimButton] = useState(0);
     const [tokenReward,setTokenReward] = useState(0);
     const [buyersAmount,setBuyersAmount] = useState({});
+    const [claimAccount,setClaimAccount] = useState(false);
 
 
-    var contractAddress = '0x922fAb9C24aD249F5Db0A621B0fD17d3dfA905d8';
+    var contractAddress = '0x2e5BDA75fB2A66061C1f71e154D13AC04891C7aC';
     var abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"}],"name":"addWhiteListedToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"address","name":"_referralId","type":"address"}],"name":"buyToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"buyers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"buyersAmount","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"lockingPeriod1Claimed","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_referralPercent","type":"uint256"}],"name":"createReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"getTokenAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"percentTokens1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleEndTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"bool","name":"isReferrer","type":"bool"},{"internalType":"uint256","name":"percentage","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"saleToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleTokenDec","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_preSaleStartTime","type":"uint256"},{"internalType":"uint256","name":"_preSaleEndTime","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod1","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod2","type":"uint256"},{"internalType":"uint256","name":"_percentTokens1","type":"uint256"}],"name":"setSalePeriodParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleToken","type":"address"},{"internalType":"uint256","name":"_totalTokensforSale","type":"uint256"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"setSaleTokenParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stopSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenPrices","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenWL","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensforSale","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"updateTokenRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdrawCurrency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
   console.log("lockingperiod1", lockingPeriod1);
 
@@ -28,26 +29,34 @@ function Claim({params}) {
 
 
   const handleSubmit = async (date) => {
+      console.log("lockingperiod1",lockingPeriod1*1000, lockingPeriod2*1000,"dddddddddddddddd",date);
       console.log("checkaccountaddress", accountAddress)
+      console.log(date>(lockingPeriod2*1000),"check11111");
+      console.log("enterrrrrrr")
 
-    if((lockingPeriod1*1000)<date){
-             
-        setTokenReward(0)
-  }else if((lockingPeriod1*1000>date)  &&  (lockingPeriod2*1000<date)){
+   
+  if(((date>lockingPeriod1*1000))  &&  ((lockingPeriod2*1000)>date)){
+
+    console.log("firstlockingend")
 
           let constant = await contract.methods.buyersAmount(accountAddress).call().then( async function( info ) 
           {
                setBuyersAmount(info)
-           let constant2 = await contract.methods.percentTokens1(accountAddress).call().then( function( info2 ) {
-            
+           let constant2 = await contract.methods.percentTokens1().call().then( function( info2 ) {
+               if(info && (info.lockingPeriod1Claimed===true)){
+                   setTokenReward(0)
+               }
+               else{
+                console.log((info.amount)/Math.pow(10,mytokenDecimals)*info2/100,"amount11111")
                 setTokenReward((info.amount)/Math.pow(10,mytokenDecimals)*info2/100)
+               }
             })
            
           })
      
+  }else if((date>(lockingPeriod2*1000))){
 
-     
-  }else if((lockingPeriod2*1000)<date){
+    console.log("secondlockingend")
 
       try{
           let constant = await contract.methods.buyersAmount(accountAddress).call().then( function( info ) 
@@ -58,9 +67,11 @@ function Claim({params}) {
        }catch(error){
          console.log(error)
 
-       }
-
-
+       }}
+      else  if((lockingPeriod1*1000)<date){
+        console.log("checkenterfirst")
+             
+        setTokenReward(0)
   }
   }
 
@@ -87,13 +98,15 @@ function Claim({params}) {
         console.log("enterrr")
 
         const date = Date.now();
+        await handleSubmit(date);
+        console.log("tokenreward",tokenReward)
         console.log("Date: ",date)
         console.log("loackingperiods: ",lockingPeriod1*1000)
         if((lockingPeriod1*1000)>date){
                console.log("not yet");
              alert("1st locking period is active! Cannot withdraw funds")
 
-        } else if((lockingPeriod1*1000)>date  &&  (lockingPeriod2*1000)<date){
+        } else if((lockingPeriod1*1000)<date  &&  (lockingPeriod2*1000)>date){
           try{
                 let constant = await contract.methods.buyersAmount(accountAddress).call().then( async function( info ) {
                     console.log("uyersamount ", info);
@@ -112,11 +125,8 @@ function Claim({params}) {
             try{
                 let constant = await contract.methods.buyersAmount(accountAddress).call().then( async function( info ) {
                     console.log("uyersamount2 ", info);
-                    if(info.lockingPeriod2Claimed===false){
                         await contract.methods.withdrawToken().send({from: accountAddress})
-                    }else{
-                        alert("2nd locking period claimed !")
-                    }
+                   
 
                   });
              }catch(error){
@@ -128,7 +138,7 @@ function Claim({params}) {
     return (
         <MainContainer>
         <ReferralContainer>
-            <h1>Your <span>{tokenReward}</span> Tokens are Availale for claim</h1>
+            <h1>Your <span>{tokenReward}</span> $SMPLX are available for claim</h1>
             <Button onClick={claim}>Claim</Button>
         </ReferralContainer>
         </MainContainer>
