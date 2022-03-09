@@ -19,8 +19,8 @@ module.exports = {
       accounts: [CONFIG["BSCTESTNET"]["PKEY"]]
     }
   },
-  gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
-  },
+  // gasReporter: {
+  //   enabled: process.env.REPORT_GAS !== undefined,
+  //   currency: "USD",
+  // },
 };

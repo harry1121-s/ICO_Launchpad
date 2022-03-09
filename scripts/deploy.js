@@ -43,9 +43,9 @@ contract("Presale Deployment", () => {
 	  WLTokens = ["0x603Ce222a02cE7E77E0cA3a9BB2870B821Dda8B3", "0x5009b8bBa2e4dEa6D86198F44743f732264D4349"];
       price = ["10000000000000000000", "5000000000000000000000"];
 
-      end = 10 * 60;
-      lock1 = 30 * 60;
-      lock2 = 60 * 60;
+      end = 3 * 60 * 60;
+      lock1 = 4 * 60 * 60;
+      lock2 = 5 * 60 * 60;
 
 
       console.log({
