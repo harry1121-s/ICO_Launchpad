@@ -22,8 +22,9 @@ import github from "../assets/images/github.png"
 import medium from "../assets/images/medium.png"
 import instagram from "../assets/images/instagram.png"
 import telegram from "../assets/images/telegram.png"
+import busd from "../assets/images/busd.png"
 
 
 
 
-export { mail, github, medium, instagram, telegram, logoIcoPad, bscscan, certik, coingecko, coinmarketcap, interfi, simplex_ico_logo, simplex_logo, card1, card2, card3, card4, twitter, simplex_logo_white, matic, usdt, bnb, simplex_logo_small };
+export { mail, github, medium, instagram, telegram, logoIcoPad, bscscan, certik, coingecko, coinmarketcap, interfi, simplex_ico_logo, simplex_logo, card1, card2, card3, card4, twitter, simplex_logo_white, matic, usdt, bnb, simplex_logo_small, busd };

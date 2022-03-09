@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Button, Checkbox } from '@mui/material';
-import { simplex_logo_small, bnb, matic, usdt } from './assets';
+import { simplex_logo_small, bnb, matic, usdt, busd } from './assets'
 import Referral from './Referral';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ReactLoading from 'react-loading';
@@ -32,7 +32,7 @@ function LandingPage({params}) {
 
     const currencyOptions = {
         "bnb": bnb,
-        "matic": matic,
+        "busd": busd,
         "usdt": usdt
     }
 
@@ -593,7 +593,7 @@ console.log("\r\n");
                // var amount1= (buyAmount*(Math.pow(10,bnbDecimals)));
               //  amount = String(amount1.toLocaleString('fullwide', { useGrouping: false }));
         }
-        if(currency && (currency.name === "matic")){
+        if(currency && (currency.name === "busd")){
             setSelectedCurrencyAddress(atoken);
             console.log("buyamountatoken",buyAmount,atokenrate,atokenrate*buyAmount)
             setSmplxAmount((atokenrate*buyAmount).toFixed(6));
