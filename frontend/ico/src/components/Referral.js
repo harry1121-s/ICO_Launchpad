@@ -5,18 +5,18 @@ import Web3 from "web3";
 import Countdown from 'react-countdown';
 import CountDownTimer from '@inlightmedia/react-countdown-timer';
 
-function Referral({ accountAddress , connectToWallet,preSaleEndTime}) {
+function Referral({ accountAddress, connectToWallet, preSaleEndTime }) {
     const [userShare, setUserShare] = useState(250);
     const [partnerShare, setPartnerShare] = useState(250);
-    const [account,setAccountAddress] = useState(accountAddress);
+    const [account, setAccountAddress] = useState(accountAddress);
 
-    console.log("presale",preSaleEndTime)
+    console.log("presale", preSaleEndTime)
 
     var contractAddress = '0x53bb09134B2F8076Fc35197073E5ADabd22443A9';
-    var abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"}],"name":"addWhiteListedToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_token","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"},{"internalType":"address","name":"_referralId","type":"address"}],"name":"buyToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"buyers","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"buyersAmount","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"lockingPeriod1Claimed","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_referralPercent","type":"uint256"}],"name":"createReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"getTokenAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lockingPeriod2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"percentTokens1","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleEndTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"preSaleStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"bool","name":"isReferrer","type":"bool"},{"internalType":"uint256","name":"percentage","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"saleToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"saleTokenDec","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_preSaleStartTime","type":"uint256"},{"internalType":"uint256","name":"_preSaleEndTime","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod1","type":"uint256"},{"internalType":"uint256","name":"_lockingPeriod2","type":"uint256"},{"internalType":"uint256","name":"_percentTokens1","type":"uint256"}],"name":"setSalePeriodParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_saleToken","type":"address"},{"internalType":"uint256","name":"_totalTokensforSale","type":"uint256"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"setSaleTokenParams","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stopSale","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenPrices","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenWL","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensforSale","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"_tokens","type":"address[]"},{"internalType":"uint256[]","name":"_prices","type":"uint256[]"},{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"updateTokenRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amt","type":"uint256"}],"name":"withdrawCurrency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+    var abi = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "stateMutability": "payable", "type": "fallback" }, { "inputs": [{ "internalType": "address[]", "name": "_tokens", "type": "address[]" }, { "internalType": "uint256[]", "name": "_prices", "type": "uint256[]" }], "name": "addWhiteListedToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_token", "type": "address" }, { "internalType": "uint256", "name": "_amount", "type": "uint256" }, { "internalType": "address", "name": "_referralId", "type": "address" }], "name": "buyToken", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "name": "buyers", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "buyersAmount", "outputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "bool", "name": "lockingPeriod1Claimed", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_referralPercent", "type": "uint256" }], "name": "createReferral", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "getTokenAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "lockingPeriod1", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "lockingPeriod2", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "percentTokens1", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "preSaleEndTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "preSaleStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "rate", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "referrals", "outputs": [{ "internalType": "bool", "name": "isReferrer", "type": "bool" }, { "internalType": "uint256", "name": "percentage", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "saleToken", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "saleTokenDec", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_preSaleStartTime", "type": "uint256" }, { "internalType": "uint256", "name": "_preSaleEndTime", "type": "uint256" }, { "internalType": "uint256", "name": "_lockingPeriod1", "type": "uint256" }, { "internalType": "uint256", "name": "_lockingPeriod2", "type": "uint256" }, { "internalType": "uint256", "name": "_percentTokens1", "type": "uint256" }], "name": "setSalePeriodParams", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_saleToken", "type": "address" }, { "internalType": "uint256", "name": "_totalTokensforSale", "type": "uint256" }, { "internalType": "uint256", "name": "_rate", "type": "uint256" }], "name": "setSaleTokenParams", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "stopSale", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "tokenPrices", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "tokenWL", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalTokensSold", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalTokensforSale", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address[]", "name": "_tokens", "type": "address[]" }, { "internalType": "uint256[]", "name": "_prices", "type": "uint256[]" }, { "internalType": "uint256", "name": "_rate", "type": "uint256" }], "name": "updateTokenRate", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amt", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }], "name": "withdrawAll", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amt", "type": "uint256" }], "name": "withdrawCurrency", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "withdrawToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
 
 
-    const mytoken = "0x22b941baaB9E8E07720A3e19be63799E7F1C4313" 
+    const mytoken = "0x22b941baaB9E8E07720A3e19be63799E7F1C4313"
 
     const atoken = "0xa3CA6Fba7cb953c13df7272032870Bbb913A0ae7" //matic
 
@@ -27,54 +27,54 @@ function Referral({ accountAddress , connectToWallet,preSaleEndTime}) {
         setPartnerShare(e.target.max - e.target.value)
 
     }
- //console.log('ISOO',preSaleEndTime.toisoString())
+    //console.log('ISOO',preSaleEndTime.toisoString())
 
 
     const generateReferral = async () => {
 
-        const {ethereum}=window;
-      
+        const { ethereum } = window;
+
         const web3 = new Web3(window.ethereum);
         const chainId = await web3.eth.net.getId();
 
-        if((accountAddress==="" ) || (chainId!==97)){
+        if ((accountAddress === "") || (chainId !== 97)) {
             await connectToWallet();
             return
         }
 
         const contract = new web3.eth.Contract(abi, contractAddress);
 
-        try{
-            const accounts = await ethereum.request({ method:'eth_requestAccounts'});
-            console.log("found an account",accounts[0] ); 
-           setAccountAddress(accounts[0])  
-         }catch(error){
-           console.log(error)
-         }
+        try {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            console.log("found an account", accounts[0]);
+            setAccountAddress(accounts[0])
+        } catch (error) {
+            console.log(error)
+        }
 
-        let nftTxn = await contract.methods.createReferral((userShare)).send({from: account});
+        let nftTxn = await contract.methods.createReferral((userShare)).send({ from: account });
 
         console.log(nftTxn);
     }
     return (
         <MainContainer>
-        <ReferralContainer>
-            <h1>Generate referral</h1>
-            <SliderInfo>
-                <UserShareContainer>
-                    <h4>You will earn</h4>
-                    <h2>{`${userShare / 1000}%`}</h2>
-                </UserShareContainer>
-                <Slider>
-                    <input onInput={handleSlider} type="range" min="0" max="500" value={userShare} class="slider" id="myRange" />
-                </Slider>
-                <PartnerShareContainer>
-                    <h4>Your partner will earn</h4>
-                    <h2>{`${partnerShare / 1000}%`}</h2>
-                </PartnerShareContainer>
-            </SliderInfo>
-            <Button onClick={generateReferral}>Generate</Button>
-        </ReferralContainer>
+            <ReferralContainer>
+                <h1>Generate referral</h1>
+                <SliderInfo>
+                    <UserShareContainer>
+                        <h4>You will earn</h4>
+                        <h2>{`${userShare / 1000}%`}</h2>
+                    </UserShareContainer>
+                    <Slider>
+                        <input onInput={handleSlider} type="range" min="0" max="500" value={userShare} class="slider" id="myRange" />
+                    </Slider>
+                    <PartnerShareContainer>
+                        <h4>Your partner will earn</h4>
+                        <h2>{`${partnerShare / 1000}%`}</h2>
+                    </PartnerShareContainer>
+                </SliderInfo>
+                <Button onClick={generateReferral}>Generate</Button>
+            </ReferralContainer>
         </MainContainer>
     )
 }
@@ -84,11 +84,12 @@ export default Referral
 
 const MainContainer = styled.div`  
     width:100%;
+    height:90vh;
     display:flex;
     flex-direction:column;
     padding:20px 0;
     align-items:center;
-    justify-content: center;
+    /* justify-content: center; */
 
     >Button{
         background-color:#48dca8;
@@ -120,12 +121,13 @@ const MainContainer = styled.div`
 
 
 const ReferralContainer = styled.div`
-
+    background-color: white;
     box-shadow:0 10px 10px rgba(0,0,0,.6);
     border-radius: 35px;
     padding:45px;
     display:flex;
     flex-direction: column;
+    margin-bottom: 20px;
     *{
         margin:0;
         /* border:1px solid black; */
